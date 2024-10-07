@@ -41,6 +41,6 @@ jobs:
         uses: repo-sync/pull-request@v2
         with:
           source_branch: auto/update_${{ env.CURRENT_DATETIME }}
-          destination_branch: ${{ github.base_ref }}
+          destination_branch: ${{ github.ref_name }}
           pr_title: "[AUTO]型定義ファイル作成"
           github_token: ${{ secrets.GITHUB_TOKEN }}
