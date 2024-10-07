@@ -19,6 +19,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git checkout ${{ github.ref_name }}
           git switch -c auto/update_${{ env.CURRENT_DATETIME }}
           git push -u origin auto/update_${{ env.CURRENT_DATETIME }}
 
