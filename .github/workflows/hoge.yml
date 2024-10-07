@@ -42,5 +42,5 @@ jobs:
           source_branch: auto/update_${{ env.CURRENT_DATETIME }}
           destination_branch: ${{ env.DEST_BRANCH }}
           pr_title: "[AUTO]型定義ファイル作成"
-          pr_label: ${{ env.PR_LABEL }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # get base branch name
