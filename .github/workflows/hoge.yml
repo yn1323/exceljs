@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: 18
       - name: Install Dependencies
-        run: npm ci
+        run: npm i
       - name: Generate file
         run: touch hoge
 
