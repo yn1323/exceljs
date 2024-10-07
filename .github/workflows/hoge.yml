@@ -1,14 +1,7 @@
-name: Manually GeneratePR
+name: Auto GeneratePR
 
 on:
   workflow_dispatch:
-    inputs:
-      target:
-        type: choice
-        description: ブランチ
-        options: 
-        - master
-        - main
 
 jobs:
   deploy:
@@ -26,9 +19,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git checkout origin main
-          git switch -c auto/${{ github.event.inputs.target }}_${{ env.CURRENT_DATETIME }}
-          git push -u origin auto/${{ github.event.inputs.target }}_${{ env.CURRENT_DATETIME }}
+          git switch -c auto/update_${{ env.CURRENT_DATETIME }}
+          git push -u origin auto/_${{ env.CURRENT_DATETIME }}
 
       - name: Install NodeJS
         uses: actions/setup-node@v4
@@ -40,14 +32,14 @@ jobs:
       - name: Add and Commit
         uses: EndBug/add-and-commit@v7
         with:
-          branch: auto/${{ github.event.inputs.target }}_${{ env.CURRENT_DATETIME }}
+          branch: auto/update_${{ env.CURRENT_DATETIME }}
           message: "auto: 型ファイル自動作成"
           default_author: github_actions
 
       - name: Create pull request
         uses: repo-sync/pull-request@v2
         with:
-          source_branch: auto/${{ github.event.inputs.target }}_${{ env.CURRENT_DATETIME }}
+          source_branch: auto/update_${{ env.CURRENT_DATETIME }}
           destination_branch: ${{ env.DEST_BRANCH }}
           pr_title: "[AUTO]型定義ファイル作成"
           pr_label: ${{ env.PR_LABEL }}
